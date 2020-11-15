@@ -30,17 +30,19 @@ namespace GreetingApp
         string Greet();
     }
 
-    public struct Person : IGreetable
+    public class Person : IGreetable
     {
+        // TODO: Convert Person class to an abstract class, implement stranger and friend classes.
+        // Properties and methods which are virtual should actually be abstract
         public Person(string name, string surname)
         {
             Name = name;
             Surname = surname;
         }
 
-        internal string Name;
-        internal string Surname;
-        static private string Greeting
+        protected string Name;
+        protected string Surname;
+        protected virtual string Greeting
         {
             get
             {
@@ -48,26 +50,22 @@ namespace GreetingApp
             }
         }
 
-        public string Greet()
+        public virtual string Greet()
         {
             return string.Format("{0}, {1}.", Greeting, this.String());
         }
 
-        public string String()
+        public virtual string String()
         {
             return string.Format("{0} {1}", this.Name, this.Surname);
         }
     }
 
-    public struct Friend : IGreetable
+    public class Friend : Person
     {
-        private Person person;
+        public Friend(string name, string surname) : base(name, surname) {}
 
-        public Friend(string name, string surname)
-        {
-            person = new Person(name, surname);
-        }
-        public string Greeting
+        protected override string Greeting
         {
             get
             {
@@ -75,13 +73,13 @@ namespace GreetingApp
             }
         }
 
-        public string Greet()
+        public override string Greet()
         {
             return string.Format("{0}, {1}!", Greeting, this.String());
         }
-        public string String()
+        public override string String()
         {
-            return person.Name;
+            return this.Name;
         }
     }
 }
