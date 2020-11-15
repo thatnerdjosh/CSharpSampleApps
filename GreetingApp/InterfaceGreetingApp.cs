@@ -1,5 +1,5 @@
 ﻿//
-// Types.cs
+// InterfaceGreetingApp.cs
 //
 // Author:
 //       Josh Santos <josh@omnidapps.com>
@@ -23,65 +23,36 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE
+using System;
+
 namespace GreetingApp
 {
-    public interface IGreetable
+    class InterfaceGreetingApp
     {
-        string Greet();
-    }
-
-    public struct Person : IGreetable
-    {
-        public Person(string name, string surname)
+        static string Greet(IGreetable obj)
         {
-            Name = name;
-            Surname = surname;
+            return obj.Greet();
         }
 
-        internal string Name;
-        internal string Surname;
-        static private string Greeting
+        public static void App()
         {
-            get
-            {
-                return "Hello";
-            }
-        }
+            Console.Write("Enter a strangers first name: ");
+            string name = Console.ReadLine();
+            Console.Write("Enter a strangers last name: ");
+            string surname = Console.ReadLine();
 
-        public string Greet()
-        {
-            return string.Format("{0}, {1}.", Greeting, this.String());
-        }
+            IGreetable person = new Person(name,
+                                       surname);
+            Console.WriteLine(string.Format("Here is a greeting for a stranger: {0}", Greet(person)));
 
-        public string String()
-        {
-            return string.Format("{0} {1}", this.Name, this.Surname);
-        }
-    }
+            Console.Write("Enter your friends first name: ");
+            name = Console.ReadLine();
+            Console.Write("Enter your friends last name: ");
+            surname = Console.ReadLine();
 
-    public struct Friend : IGreetable
-    {
-        private Person person;
-
-        public Friend(string name, string surname)
-        {
-            person = new Person(name, surname);
-        }
-        public string Greeting
-        {
-            get
-            {
-                return "Hey";
-            }
-        }
-
-        public string Greet()
-        {
-            return string.Format("{0}, {1}!", Greeting, this.String());
-        }
-        public string String()
-        {
-            return person.Name;
+            IGreetable friend = new Friend(name,
+                                       surname);
+            Console.WriteLine(string.Format("Here is a greeting for your friend: {0}", Greet(friend)));
         }
     }
 }

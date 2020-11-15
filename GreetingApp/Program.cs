@@ -31,13 +31,8 @@ namespace GreetingApp
     {
         static void Main(string[] args)
         {
-            Console.Write("Enter your first name: ");
-            string name = Console.ReadLine();
-            Console.Write("Enter your last name: ");
-            string surname = Console.ReadLine();
-
-            Person person = new Person(name, surname);
-            Console.WriteLine(string.Format("Hello, {0}", person.String()));
+            InterfaceGreetingApp.App();
+            GreetingApp.App();
         }
     }
 }
