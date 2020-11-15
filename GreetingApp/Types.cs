@@ -38,8 +38,8 @@ namespace GreetingApp
             Surname = surname;
         }
 
-        public string Name { get; }
-        public string Surname { get; }
+        private string Name;
+        private string Surname;
 
         public string String()
         {
